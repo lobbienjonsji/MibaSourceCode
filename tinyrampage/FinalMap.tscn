@@ -1,0 +1,295 @@
+[gd_scene load_steps=21 format=3 uid="uid://b8ecr54yg6qeu"]
+
+[ext_resource type="PackedScene" uid="uid://bd7ok4vfvdls2" path="res://Cursor.tscn" id="1_ljcdc"]
+[ext_resource type="Script" path="res://final_map.gd" id="1_s4xan"]
+[ext_resource type="Texture2D" uid="uid://c8f7ufqcbf322" path="res://Resources/Map.png" id="2_np2uy"]
+[ext_resource type="PackedScene" uid="uid://b8dw2tm62hjdf" path="res://LittleMonster.tscn" id="3_uaijf"]
+[ext_resource type="PackedScene" uid="uid://b75gpx1rg0tk7" path="res://LittleEnemy.tscn" id="4_b8m3g"]
+[ext_resource type="Script" path="res://extra_speed.gd" id="6_04uxf"]
+[ext_resource type="Script" path="res://team_heal.gd" id="7_icsre"]
+[ext_resource type="Script" path="res://control.gd" id="7_rrfag"]
+[ext_resource type="Script" path="res://extra_attack_speed.gd" id="8_n7l8b"]
+[ext_resource type="Script" path="res://extra_health.gd" id="9_4r0h2"]
+[ext_resource type="Script" path="res://extra_monster.gd" id="10_axlm0"]
+[ext_resource type="PackedScene" uid="uid://b28mylwo82leb" path="res://Tower.tscn" id="11_uy2vm"]
+[ext_resource type="PackedScene" uid="uid://c8l675ff7usl5" path="res://FriendlyTower.tscn" id="13_ipyji"]
+[ext_resource type="AudioStream" uid="uid://brp0dko54sr66" path="res://Resources/Audio/Uhoh.wav" id="14_0q6xv"]
+[ext_resource type="AudioStream" uid="uid://qaf6nehq8mla" path="res://Resources/Audio/Argh.wav" id="15_keb1c"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_e0kpu"]
+vertices = PackedVector2Array(797.617, -18.1094, 1162.02, -22.8594, 853.477, 185.82, 795.023, -0.757813, 1163.97, 662.641, 914.641, 444.563, 905.273, 419.563, 812.891, 355.531, 783.477, 269.508, 537.289, 481.859, 557.82, 495.102, 549.047, 505.07, 522.102, 488.563, 509.117, 469.789, 492.25, 493.148, 439.477, 536.219, 507.008, 524.508, 780.531, 553.531, 277.25, 631.391, 283.203, 582.961, 634.992, 560.5, 739.906, 323.273, 723.578, 321.867, 725.703, 288.039, 749.57, 274.039, 804.297, 354.031, 780.117, 351.109, 682.203, 393.883, 686.43, 428.172, 673.656, 424.594, 673.742, 423.68, 608.703, 247.938, 628.117, 263.313, 667.617, 307.508, 529.109, 382.617, 506.219, 333.992, 500.188, 276.492, 485.93, 315.148, 378.148, 327.258, 473.82, 320.633, 475.883, 395.063, 406.492, 466.461, 244.258, 467.172, 219.578, 417.297, 781.922, 2.39063, 787.211, 51.25, 830.961, 527.172, 564.039, 546, 590.273, 520.641, 342.453, 228.211, 201.508, 417.094, 182.219, 298.57, 210.992, 195.844, 772.094, 137, 783.859, 73.6484, 713.023, 510.844, 183.602, 160.633, 214.203, 93.3125, 325.617, 60.8125, 356.398, 184.023, 443.891, 115.961, 342.453, 42.5938, 363.891, -4.96094, 421.031, -14.0313, 491.078, 92.8203, 731.75, 118.773, 613.906, 155.25, 761, -26.7969, 762.602, 50.9063, 535.672, 546, 409.492, 481.461)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5, 6), PackedInt32Array(2, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13), PackedInt32Array(13, 12, 14), PackedInt32Array(15, 13, 14), PackedInt32Array(15, 14, 16), PackedInt32Array(17, 4, 18, 19, 20), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(24, 23, 2), PackedInt32Array(8, 24, 2), PackedInt32Array(8, 7, 25), PackedInt32Array(26, 8, 25), PackedInt32Array(27, 26, 25, 28, 29, 30), PackedInt32Array(31, 32, 33, 27, 30, 34, 35, 36), PackedInt32Array(36, 35, 37), PackedInt32Array(38, 36, 37, 39), PackedInt32Array(38, 39, 40, 41, 42, 43), PackedInt32Array(44, 3, 2, 45), PackedInt32Array(46, 5, 4), PackedInt32Array(47, 48, 20), PackedInt32Array(49, 38, 43, 50, 51, 52), PackedInt32Array(2, 53, 54), PackedInt32Array(20, 55, 17), PackedInt32Array(49, 52, 56, 57, 58, 59), PackedInt32Array(60, 61, 62, 63, 64), PackedInt32Array(65, 66, 64, 63, 67, 44, 68), PackedInt32Array(17, 46, 4), PackedInt32Array(47, 20, 19, 69), PackedInt32Array(16, 69, 19, 15), PackedInt32Array(70, 15, 19, 42), PackedInt32Array(41, 70, 42), PackedInt32Array(60, 59, 58, 61), PackedInt32Array(45, 68, 44), PackedInt32Array(45, 2, 54)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(498, 340, 522, 391, 684, 437, 690, 380, 677, 303, 635, 256, 611, 237, 497, 267, 384, 314, 353, 228, 365, 190, 473, 106, 327, 50, 207, 85, 172, 162, 200, 198, 172, 298, 193, 427, 280, 428, 417, 470, 486, 399, 484, 327), PackedVector2Array(668, 375, 663, 432, 688, 439, 812, 361, 776, 342, 689, 380), PackedVector2Array(770, 354, 786, 361, 809, 365, 897, 426, 903, 442, 825, 519, 781, 542, 713, 499, 636, 548, 590, 507, 560, 536, 539, 536, 515, 518, 507, 501, 520, 499, 551, 518, 573, 493, 542, 473, 507, 458, 442, 520, 419, 478, 400, 383, 186, 372, 235, 471, 273, 584, 266, 641, 1174, 673, 1172, -33, 789, -28, 774, 72, 761, 142, 836, 187, 716, 283, 713, 331, 748, 334, 758, 283, 773, 281), PackedVector2Array(310, 63, 438, 130, 491, 104, 613, 166, 739, 127, 769, 61, 837, 62, 766, -37, 420, -24, 357, -14, 334, 37)])
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dwhul"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1en6c"]
+size = Vector2(48, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqs5r"]
+size = Vector2(46, 46)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ernow"]
+radius = 33.541
+
+[node name="FinalMap" type="Node2D"]
+script = ExtResource("1_s4xan")
+
+[node name="Cursor" parent="." instance=ExtResource("1_ljcdc")]
+z_index = 5
+
+[node name="Map" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+texture = ExtResource("2_np2uy")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_e0kpu")
+
+[node name="CharacterBody2D2" parent="." groups=["PlayerCharacters"] instance=ExtResource("3_uaijf")]
+position = Vector2(273, 312)
+
+[node name="CharacterBody2D3" parent="." groups=["PlayerCharacters"] instance=ExtResource("3_uaijf")]
+position = Vector2(307, 294)
+
+[node name="CharacterBody2D4" parent="." groups=["PlayerCharacters"] instance=ExtResource("3_uaijf")]
+position = Vector2(228, 288)
+
+[node name="LittleEnemy" parent="." groups=["Enemies"] instance=ExtResource("4_b8m3g")]
+position = Vector2(1120, 345)
+
+[node name="LittleEnemy2" parent="." groups=["Enemies"] instance=ExtResource("4_b8m3g")]
+position = Vector2(1045, 396)
+
+[node name="LittleEnemy3" parent="." groups=["Enemies"] instance=ExtResource("4_b8m3g")]
+position = Vector2(1041, 276)
+
+[node name="LittleEnemy4" parent="." groups=["Enemies"] instance=ExtResource("4_b8m3g")]
+position = Vector2(1015, 340)
+
+[node name="TopPathNode" type="Node2D" parent="."]
+position = Vector2(650, 86)
+
+[node name="MidPathNode" type="Node2D" parent="."]
+position = Vector2(651, 365)
+
+[node name="BotPathNode" type="Node2D" parent="."]
+position = Vector2(656, 604)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(559, 206)
+scale = Vector2(14.88, 5.72)
+physics_material_override = SubResource("PhysicsMaterial_dwhul")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(1.94892, 1.3986)
+polygon = PackedVector2Array(-10.6855, 46.6783, -9.61022, 50.8741, -5.44355, 42.1329, -0.940861, 47.9021, -2.08334, 53.8462, -4.23387, 51.2238, -4.97312, 52.4476, -1.74731, 56.4685, -0.201614, 49.8252, 3.49462, 56.4685, 8.46774, 48.9511, 12.9032, 56.6434, 20.4973, 39.6853, 14.6505, 27.0979, 6.65322, 41.958, -4.7043, 33.5664, -6.51882, 21.5035, -6.31721, 33.042)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-13.5081, 3.67133, -11.2231, 17.3077, -2.75538, 8.39161, 3.62903, 3.49651, 5.84677, 8.91608, 8.13172, 13.2867, 9.47581, 28.3217, 13.6425, 24.8252, 14.0457, 13.2867, 13.4409, 12.9371, 13.0376, 23.4266, 10.0806, 24.3007, 10.2151, 12.5874, 18.75, -1.92308, 15.7258, -8.04196, 13.6425, -10.6643, 14.3145, -23.951, 12.164, -12.0629, 8.40054, -9.44056, 4.03226, -5.59441, -0.604839, -10.8392, -5.77957, -15.7343, -9.74463, -8.74126, -11.9624, -4.02098)
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(251, 585)
+
+[node name="Area2D" type="Area2D" parent="SpawnPoint"]
+position = Vector2(55, -11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnPoint/Area2D"]
+position = Vector2(5, 0)
+shape = SubResource("RectangleShape2D_1en6c")
+
+[node name="Area2D2" type="Area2D" parent="SpawnPoint"]
+position = Vector2(-31, -323)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnPoint/Area2D2"]
+position = Vector2(3, 8)
+shape = SubResource("RectangleShape2D_1en6c")
+
+[node name="Timer" type="Timer" parent="SpawnPoint"]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="EnemySpawn" type="Node2D" parent="."]
+position = Vector2(1074, 347)
+
+[node name="EnemyRespawnTimer" type="Timer" parent="EnemySpawn"]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="EnemySpawn"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawn/Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_iqs5r")
+
+[node name="Tower" parent="." groups=["Towers"] instance=ExtResource("11_uy2vm")]
+position = Vector2(1091, 519)
+
+[node name="Tower2" parent="." groups=["Towers"] instance=ExtResource("11_uy2vm")]
+position = Vector2(716, 580)
+
+[node name="Tower3" parent="." groups=["Towers"] instance=ExtResource("11_uy2vm")]
+position = Vector2(601, 330)
+
+[node name="Tower4" parent="." groups=["Towers"] instance=ExtResource("11_uy2vm")]
+position = Vector2(530, 68)
+
+[node name="Tower5" parent="." groups=["Towers"] instance=ExtResource("11_uy2vm")]
+position = Vector2(1101, 198)
+
+[node name="Gold" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 82.0
+offset_right = 127.0
+offset_bottom = 105.0
+text = "Current Gold: 0"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -38.0
+offset_right = 148.0
+offset_bottom = 650.0
+mouse_filter = 1
+script = ExtResource("7_rrfag")
+
+[node name="CheapItems" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 115.0
+offset_right = 120.0
+offset_bottom = 138.0
+text = "250 Gold:"
+
+[node name="ExtraSpeed" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 137.0
+offset_right = 120.0
+offset_bottom = 206.0
+mouse_filter = 1
+text = "Extra
+Speed"
+script = ExtResource("6_04uxf")
+
+[node name="TeamHeal" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 210.0
+offset_right = 119.0
+offset_bottom = 279.0
+mouse_filter = 1
+text = "Team
+Heal"
+script = ExtResource("7_icsre")
+
+[node name="ExpensiveItems" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 284.0
+offset_right = 119.0
+offset_bottom = 307.0
+text = "500 Gold:"
+
+[node name="ExtraAttackSpeed" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 309.0
+offset_right = 120.0
+offset_bottom = 386.0
+mouse_filter = 1
+text = "Extra
+Attack
+Speed"
+script = ExtResource("8_n7l8b")
+
+[node name="ExtraHealth" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 392.0
+offset_right = 122.0
+offset_bottom = 461.0
+mouse_filter = 1
+text = "Extra
+Health
+"
+script = ExtResource("9_4r0h2")
+
+[node name="VeryExpensiveItems" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 464.0
+offset_right = 130.0
+offset_bottom = 487.0
+text = "1000 Gold:"
+
+[node name="ExtraMonster" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 492.0
+offset_right = 127.0
+offset_bottom = 569.0
+mouse_filter = 1
+text = "Extra
+Monster"
+script = ExtResource("10_axlm0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(529, 502, 542, 475, 573, 491, 556, 517)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(714, 289, 711, 341, 751, 338, 755, 284)
+
+[node name="FarmTimer" type="Timer" parent="Area2D"]
+wait_time = 0.5
+autostart = true
+
+[node name="FriendlyTower2" parent="." groups=["FriendlyTowers"] instance=ExtResource("13_ipyji")]
+position = Vector2(301, 129)
+
+[node name="FriendlyTower" parent="." groups=["FriendlyTowers"] instance=ExtResource("13_ipyji")]
+position = Vector2(375, 565)
+
+[node name="Area2D2" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(295, 335)
+shape = SubResource("CircleShape2D_ernow")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(310, 436)
+shape = SubResource("CircleShape2D_ernow")
+
+[node name="HealTimer" type="Timer" parent="Area2D2"]
+wait_time = 0.5
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_0q6xv")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_keb1c")
+
+[connection signal="death" from="CharacterBody2D2" to="." method="_play_death_sound"]
+[connection signal="death" from="CharacterBody2D3" to="." method="_play_death_sound"]
+[connection signal="death" from="CharacterBody2D4" to="." method="_play_death_sound"]
+[connection signal="get_target" from="LittleEnemy" to="." method="_get_path_node"]
+[connection signal="get_target" from="LittleEnemy2" to="." method="_get_path_node"]
+[connection signal="get_target" from="LittleEnemy3" to="." method="_get_path_node"]
+[connection signal="get_target" from="LittleEnemy4" to="." method="_get_path_node"]
+[connection signal="mouse_entered" from="Control" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Control" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="pressed" from="Control/ExtraSpeed" to="Control/ExtraSpeed" method="_on_pressed"]
+[connection signal="pressed" from="Control/TeamHeal" to="Control/TeamHeal" method="_on_pressed"]
+[connection signal="pressed" from="Control/ExtraAttackSpeed" to="Control/ExtraAttackSpeed" method="_on_pressed"]
+[connection signal="pressed" from="Control/ExtraHealth" to="Control/ExtraHealth" method="_on_pressed"]
+[connection signal="pressed" from="Control/ExtraMonster" to="Control/ExtraMonster" method="_on_pressed"]
+[connection signal="timeout" from="Area2D/FarmTimer" to="." method="_on_farm_timer_timeout"]
+[connection signal="timeout" from="Area2D2/HealTimer" to="." method="_on_heal_timer_timeout"]

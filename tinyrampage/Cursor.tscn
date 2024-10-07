@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd7ok4vfvdls2"]
+
+[ext_resource type="Shader" path="res://Cursor.gdshader" id="1_50thg"]
+[ext_resource type="Script" path="res://cursor.gd" id="2_a2m8b"]
+[ext_resource type="Texture2D" uid="uid://coxxtcn1vecm1" path="res://Resources/Cursor.png" id="3_ey6nh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5s2c"]
+shader = ExtResource("1_50thg")
+shader_parameter/is_object_centered = true
+shader_parameter/is_round = false
+shader_parameter/circle_radius = 0.71
+shader_parameter/outline_thickness = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_143cs"]
+radius = 17.0
+
+[node name="Cursor" type="Node2D"]
+z_index = 4096
+material = SubResource("ShaderMaterial_s5s2c")
+script = ExtResource("2_a2m8b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("3_ey6nh")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_143cs")

@@ -1,0 +1,87 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8dw2tm62hjdf"]
+
+[ext_resource type="Shader" path="res://LittleMonster.gdshader" id="1_f5xde"]
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_roynk"]
+[ext_resource type="Texture2D" uid="uid://b6ofmmuugem51" path="res://Resources/Monster1.png" id="2_8rws0"]
+[ext_resource type="PackedScene" uid="uid://5nwfysw1k5eo" path="res://HealthBar.tscn" id="3_llqqo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nf2be"]
+shader = ExtResource("1_f5xde")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6xmv"]
+size = Vector2(26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syjck"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecdhe"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3s3qf"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lts1b"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x501"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r40i2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syjck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecdhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3s3qf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lts1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3x501")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mc7rq"]
+size = Vector2(28, 28)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 1
+material = SubResource("ShaderMaterial_nf2be")
+script = ExtResource("1_roynk")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f6xmv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_r40i2")
+autoplay = "default"
+frame_progress = 0.527078
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("Hitbox") instance=ExtResource("3_llqqo")]
+z_index = 1
+position = Vector2(0, 10)
+Hitbox = NodePath("../Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_mc7rq")

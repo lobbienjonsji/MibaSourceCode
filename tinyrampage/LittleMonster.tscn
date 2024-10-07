@@ -1,0 +1,135 @@
+[gd_scene load_steps=19 format=3 uid="uid://b8dw2tm62hjdf"]
+
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_roynk"]
+[ext_resource type="Texture2D" uid="uid://b6ofmmuugem51" path="res://Resources/Monster1.png" id="2_8rws0"]
+[ext_resource type="PackedScene" uid="uid://5nwfysw1k5eo" path="res://HealthBar.tscn" id="3_llqqo"]
+[ext_resource type="Texture2D" uid="uid://cebuxyyvy7tml" path="res://Resources/Selection.png" id="4_drtn2"]
+[ext_resource type="Script" path="res://selection.gd" id="4_hyqgm"]
+[ext_resource type="Texture2D" uid="uid://dhyle5w8tys4d" path="res://Resources/Attack anim.png" id="5_3dl2g"]
+[ext_resource type="AudioStream" uid="uid://ca104setip2ue" path="res://Resources/Audio/Womp.wav" id="6_tvop1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nf2be"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6xmv"]
+size = Vector2(26, 26)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ljc4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syjck"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecdhe"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3s3qf"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lts1b"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x501"]
+atlas = ExtResource("2_8rws0")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r40i2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syjck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecdhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3s3qf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lts1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3x501")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g8p10"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ev6nh"]
+radius = 33.0606
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 1
+material = SubResource("ShaderMaterial_nf2be")
+collision_layer = 133
+collision_mask = 5
+script = ExtResource("1_roynk")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 50.0
+simplify_path = true
+simplify_epsilon = 0.04
+avoidance_enabled = true
+radius = 15.0
+time_horizon_agents = 2.76
+time_horizon_obstacles = 5.16
+max_speed = 7841.93
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f6xmv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_8ljc4")
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_r40i2")
+autoplay = "default"
+frame_progress = 0.527078
+
+[node name="HealthBar" parent="." instance=ExtResource("3_llqqo")]
+z_index = 1
+position = Vector2(0, 10)
+
+[node name="Selection" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("4_hyqgm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Selection"]
+shape = SubResource("RectangleShape2D_g8p10")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_drtn2")
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackVisTimer" type="Timer" parent="."]
+
+[node name="Attack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-2.38419e-07, -2.38419e-07)
+scale = Vector2(1.24, 1.32)
+texture = ExtResource("5_3dl2g")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_ev6nh")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_tvop1")
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="onDeath" from="HealthBar" to="." method="_die"]
+[connection signal="area_entered" from="Selection" to="." method="_on_selection_area_entered"]
+[connection signal="area_exited" from="Selection" to="." method="_on_selection_area_exited"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackVisTimer" to="." method="_on_attack_vis_timer_timeout"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://b28mylwo82leb"]
+
+[ext_resource type="Texture2D" uid="uid://qd10crc1d25d" path="res://Resources/Tower.png" id="1_2vvvg"]
+[ext_resource type="Script" path="res://tower.gd" id="1_clv8f"]
+[ext_resource type="PackedScene" uid="uid://5nwfysw1k5eo" path="res://HealthBar.tscn" id="2_x2xc3"]
+[ext_resource type="Texture2D" uid="uid://dhe82u3yj8yue" path="res://Resources/TowerRadius.png" id="4_6xiw4"]
+[ext_resource type="Texture2D" uid="uid://rgfumviywimw" path="res://Resources/TowerBeam.png" id="5_knn4q"]
+[ext_resource type="AudioStream" uid="uid://u0nbhe2m4i5v" path="res://Resources/Audio/Zap.wav" id="6_scmrw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1trc"]
+radius = 99.0202
+
+[node name="Tower" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_clv8f")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(8, -21, 19, 3, -2, 20, -21, 5, -11, -15)
+
+[node name="HealthBar" parent="." instance=ExtResource("2_x2xc3")]
+position = Vector2(0, 23)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2vvvg")
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_n1trc")
+
+[node name="Area" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("4_6xiw4")
+
+[node name="AttackTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+position = Vector2(0, -7.52381)
+scale = Vector2(1, 2.95238)
+points = PackedVector2Array(1, 2.54839, -98, 2.8871)
+texture = ExtResource("5_knn4q")
+texture_mode = 2
+
+[node name="MakeInvisble" type="Timer" parent="Line2D"]
+wait_time = 0.5
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_scmrw")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 24.84
+vertices = PackedVector2Array(-11, -17, 7, -24, 18, 3, -2, 21, -20, 5)
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Line2D/MakeInvisble" to="." method="_on_make_invisble_timeout"]

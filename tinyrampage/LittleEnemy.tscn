@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=3 uid="uid://b75gpx1rg0tk7"]
+
+[ext_resource type="Script" path="res://little_enemy.gd" id="1_8mhed"]
+[ext_resource type="Texture2D" uid="uid://dvnkdvjsdx0sk" path="res://Resources/Monster2.png" id="1_jl2rs"]
+[ext_resource type="PackedScene" uid="uid://5nwfysw1k5eo" path="res://HealthBar.tscn" id="2_1paci"]
+[ext_resource type="AudioStream" uid="uid://ciqwym7mmjup7" path="res://Resources/Audio/Plopp.wav" id="4_mxrt4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cn1uw"]
+size = Vector2(18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx347"]
+atlas = ExtResource("1_jl2rs")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hcpv"]
+atlas = ExtResource("1_jl2rs")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_786hk"]
+atlas = ExtResource("1_jl2rs")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjodb"]
+atlas = ExtResource("1_jl2rs")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_envbb"]
+atlas = ExtResource("1_jl2rs")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t6jyv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx347")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hcpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_786hk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjodb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_envbb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5oh8"]
+radius = 31.54
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vhajc"]
+radius = 62.28
+
+[node name="LittleEnemy" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_8mhed")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_cn1uw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_t6jyv")
+autoplay = "default"
+frame_progress = 0.764837
+
+[node name="HealthBar" parent="." instance=ExtResource("2_1paci")]
+z_index = 1
+position = Vector2(0, 10)
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+collision_priority = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_o5oh8")
+
+[node name="FollowRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowRange"]
+shape = SubResource("CircleShape2D_vhajc")
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="AttackVisTimer" type="Timer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 50.0
+simplify_path = true
+simplify_epsilon = 0.04
+avoidance_enabled = true
+radius = 15.0
+time_horizon_agents = 2.76
+time_horizon_obstacles = 5.16
+max_speed = 7841.93
+
+[node name="Retarget" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_mxrt4")
+volume_db = 1.292
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Retarget" to="." method="_on_retarget_timeout"]
